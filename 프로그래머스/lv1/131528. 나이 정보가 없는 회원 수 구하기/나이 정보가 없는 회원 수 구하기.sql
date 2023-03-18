@@ -1,3 +1,2 @@
 -- 코드를 입력하세요
-SELECT count(*) from user_info
-where age is null
+SELECT sum(age is null) from user_info
