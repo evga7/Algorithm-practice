@@ -2,7 +2,7 @@ def solution(n, cores):
     if len(cores)>=n:
         return n
     n-=len(cores)
-    left=1
+    left=0
     right=int(1e13)
     while left<=right:
         mid=left+right>>1
@@ -13,11 +13,10 @@ def solution(n, cores):
             right=mid-1
         else:
             left=mid+1
-    right+=1
     for cur in cores:
-        n-=(right-1)//cur
+        n-=(left-1)//cur
     for i,cur in enumerate(cores):
-        if not right%cur:
+        if not left%cur:
             n-=1
         if not n:
             return i+1
