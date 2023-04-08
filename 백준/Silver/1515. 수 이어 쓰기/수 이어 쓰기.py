@@ -1,12 +1,11 @@
 import sys
 def input():return sys.stdin.readline().rstrip()
-N=list(input())
-s=[]
+N=input()
+s=""
 i=0
 while True:
     i+=1
-    cur=str(i)
-    s+=cur
+    s+=str(i)
     idx=0
     idx2=0
     while idx<len(N) and idx2<len(s):
