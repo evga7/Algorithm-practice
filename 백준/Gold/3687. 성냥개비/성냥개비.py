@@ -9,9 +9,8 @@ def go(idx,cnt,s):
     if dp[idx][cnt]!=-1:
         return dp[idx][cnt]
     ret=int('9'*51)
-    if s and idx-op[0]>=0:
-        ret=min(ret,go(idx-op[0],cnt+1,s*10))
-    for i in range(1,10):
+    for i in range(10):
+        if not s and i==0:continue
         if idx-op[i]>=0:
             ret=min(ret,go(idx-op[i],cnt+1,s*10+i))
     dp[idx][cnt]=ret
