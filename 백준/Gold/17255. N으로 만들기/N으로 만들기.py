@@ -3,18 +3,18 @@ import sys
 def input():return sys.stdin.readline().rstrip()
 S=input()
 st=set()
-m=defaultdict(str)
-v=[]
-def go(ss,l,r,sts):
-    if ss==S:
+q=deque()
+q.append((S,S,len(S)-1))
+res=0
+while q:
+    cur,sts,cost=q.popleft()
+    if cost==0:
         st.add(sts)
-        return
-    if len(ss)>=len(S):
-        return
-    if l-1>=0:
-        go(S[l-1]+ss,l-1,r,sts+S[l-1:r+1])
-    if r+1<len(S):
-        go(ss+S[r+1],l,r+1,sts+S[l:r+2])
-for i,cur in enumerate(S):
-    go(S[i],i,i,S[i])
-print(len(st))
+        res+=1
+        continue
+    for nxt in [cur[1:],cur[:len(cur)-1]]:
+        nxt_sts=sts+' '+nxt
+        if nxt and not nxt_sts in st:
+            q.append((nxt,nxt_sts,cost-1))
+            st.add(nxt_sts)
+print(res)
