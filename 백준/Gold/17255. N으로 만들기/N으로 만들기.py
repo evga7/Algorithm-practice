@@ -13,7 +13,7 @@ while q:
         res+=1
         continue
     for nxt in [cur[1:],cur[:len(cur)-1]]:
-        nxt_sts=sts+' '+nxt
+        nxt_sts=sts+nxt
         if nxt and not nxt_sts in st:
             q.append((nxt,nxt_sts,cost-1))
             st.add(nxt_sts)
