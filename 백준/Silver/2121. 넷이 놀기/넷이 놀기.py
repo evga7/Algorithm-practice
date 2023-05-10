@@ -8,17 +8,13 @@ m=defaultdict(int)
 a.sort()
 for cur in a:
     x,y=cur[0],cur[1]
-    s=str(x)+' '+str(y)
-    m[s]+=1
+    m[(x,y)]+=1
 res=0
 for cur in a:
     x,y=cur[0],cur[1]
-    s1=str(x+A)+' '+str(y)
-    s2=str(x) + ' ' + str(y+B)
-    s3=str(x+A) + ' ' + str(y+B)
-    ss1 = str(x) + ' ' + str(y+A)
-    ss2 = str(x+B) + ' ' + str(y)
-    ss3 = str(x + B) + ' ' + str(y + A)
+    s1=(x+A,y)
+    s2=(x,y+B)
+    s3=(x+A,y+B)
     if s1 in m and s2 in m and s2 in m:
         res+=min(m[s1],m[s2],m[s3])
 print(res)
