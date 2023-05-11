@@ -7,13 +7,8 @@ def go(s,before):
     if f:
         return
     for i in range(2,len(s)//2+1):
-        for j in range(len(s)-i):
-            ss=s[j:j+i]
-            ss2=s[j+i:j+i*2]
-            if ss==ss2:
-                return
-
-
+        if s[-i:]==s[-(i*2):-i]:
+            return
     if len(s)==N:
         print(s)
         f=1
