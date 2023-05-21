@@ -17,6 +17,8 @@ def go(people,idx):
     cur_p=a[idx][1]
     for i in range(0,1001):
         ret=min(ret,go(people+i*cur_p,idx+1)+i*cur_cost)
+        if people+i*cur_p>=C:
+            break
     dp[people][idx]=ret
     return dp[people][idx]
 print(go(0,0))
