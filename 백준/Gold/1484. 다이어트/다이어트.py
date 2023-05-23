@@ -1,13 +1,17 @@
 import sys
 def input():return sys.stdin.readline().rstrip()
 N=int(input())
-st=set()
-for i in range(1,100001):
-    st.add(i*i)
+left=1
+right=2
 f=0
-for i in range(1,100001):
-    if i*i-N in st:
-        print(i)
-        f=1
+while right<=100000:
+    s=right**2-left**2
+    if s>=N:
+        if s==N:
+            print(right)
+            f=1
+        left+=1
+    else:
+        right+=1
 if not f:
     print(-1)
