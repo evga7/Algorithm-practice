@@ -6,7 +6,7 @@ g=[[] for _ in range(N+1)]
 for i in range(M):
     a,b,cost=map(int,input().split())
     g[a].append((b,cost))
-    g[b].append((b, cost))
+    g[b].append((a, cost))
 q=deque()
 dist=[987654321 for _ in range(N+1)]
 q.append((S,0,0))
