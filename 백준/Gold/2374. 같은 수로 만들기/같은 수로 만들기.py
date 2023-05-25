@@ -12,5 +12,5 @@ for cur in a:
     if st:
         st.pop()
     st.append(cur)
-res+=mn*len(st)-sum(st)
+res+=mn-st[-1]
 print(res)
