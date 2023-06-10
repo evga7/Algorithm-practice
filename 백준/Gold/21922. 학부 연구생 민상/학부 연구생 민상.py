@@ -13,11 +13,15 @@ def input(): return sys.stdin.readline().rstrip()
 
 def go(op, dir):
     if op==1:
-        if 2<=dir<=3:
-            return -1
+        if dir==2:
+            dir+=1
+        elif dir==3:
+            dir-=1
     elif op==2:
-        if 0<=dir<=1:
-            return -1
+        if dir==0:
+            dir+=1
+        elif dir==1:
+            dir-=1
     elif op == 3:
         if dir == 0:
             dir += 3
@@ -58,8 +62,6 @@ while q:
             v[x][y] = 1
             if 1 <= a[x][y] <= 4:
                 dir = go(a[x][y], dir)
-                if dir==-1:
-                    break
 res=0
 for cur in v:
     res+=cur.count(1)
