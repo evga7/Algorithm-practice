@@ -11,12 +11,11 @@ def chk(a,b,c):
     if a>=b>=c:
         return False
     return True
-while left<right and right<N:
-    if chk(arr[right],arr[right-1],arr[right-2]):
+while right<N:
+    while right <N and chk(arr[right],arr[right-1],arr[right-2]):
         res = max(res, right - left+1)
         right+=1
     else:
         left+=1
-        right+=1
-
+    right+=1
 print(res)
