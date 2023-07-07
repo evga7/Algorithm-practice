@@ -37,9 +37,9 @@ def go(idx,cnt):
     if cnt==2:
         solve()
         return
-    for i in range(idx,N):
+    for i in range(idx,N+1):
         v.append(i)
         go(i+1,cnt+1)
         v.pop()
-go(0,0)
+go(1,0)
 print(*res_v,res)
