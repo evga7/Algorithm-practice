@@ -1,36 +1,37 @@
 import sys
 def input(): return sys.stdin.readline().rstrip()
 s=input()
-st=set()
-def go(s,idx):
-    cnt=1
-    for i in range(idx+1,len(s)):
-        if s[i]=='(':cnt+=1
-        elif s[i]==')':
-            cnt-=1
-            if cnt==0:
-                idx2=i
-                break
-    s2=""
-    for i in range(len(s)):
-        if i==idx or i==idx2:continue
-        s2+=s[i]
-    return s2
+st2=set()
 v=[]
-v.append(s)
-while True:
-    v2=[]
-    for cur in v:
-        for i in range(len(cur)):
-            if cur[i]=='(':
-                c=go(cur,i)
-                if not c in st:
-                    v2.append(c)
-                    st.add(c)
-    if not v2:
-        break
-    v=v2[:]
-res_v=list(st)
+vi=[0 for _ in range(201)]
+st=[]
+for i in range(len(s)):
+    if s[i]=='(':
+        st.append(i)
+    elif s[i]==')':
+        v.append((st[-1],i))
+        st.pop()
+c=[0 for _ in range(201)]
+def go(idx,cnt):
+    if cnt:
+        ss=""
+        global s
+        for i in range(len(s)):
+            if c[i]:continue
+            ss+=s[i]
+        st2.add(ss)
+    for i in range(idx,len(v)):
+        if vi[i]:continue
+        vi[i]=1
+        start,end=v[i][0],v[i][1]
+        c[start]=1
+        c[end]=1
+        go(i+1,cnt+1)
+        vi[i]=0
+        c[start]=0
+        c[end]=0
+go(0,0)
+res_v=list(st2)
 res_v.sort()
 for cur in res_v:
     print(cur)
