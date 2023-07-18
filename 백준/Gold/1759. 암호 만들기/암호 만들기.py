@@ -1,38 +1,27 @@
 import sys
-from collections import *
-def input():return sys.stdin.readline().rstrip()
+def input(): return sys.stdin.readline().rstrip()
 N,M=map(int,input().split())
+b=['' for _ in range(M)]
 a=list(input().split())
 a.sort()
-v=[]
-st=set()
-st.add('a')
-st.add('e')
-st.add('i')
-st.add('o')
-st.add('u')
-visited=[0 for _ in range(M)]
-def chk():
-    f1=0
-    f2=0
-    for cur in v:
-        if cur in st:
-            f1+=1
-        else:
-            f2+=1
-    if f1 and f2>1:
+def chk(s):
+    if s=='a' or s=='e' or s=='i' or s=='o' or s=='u':
         return True
     return False
 def go(idx,cnt):
     if cnt==N:
-        if chk():
-            print(''.join(v))
+        aa,bb=0,0
+        for i in range(N):
+            cur=b[i]
+            if chk(cur):
+                aa+=1
+            else:
+                bb+=1
+        if aa>=1 and bb>=2:
+            print(''.join(b))
         return
     for i in range(idx,M):
-        if visited[i]:continue
-        visited[i]=1
-        v.append(a[i])
+        b[cnt]=a[i]
         go(i+1,cnt+1)
-        visited[i]=0
-        v.pop()
+        b[cnt]=''
 go(0,0)
