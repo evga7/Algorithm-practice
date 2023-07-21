@@ -12,7 +12,7 @@ def chk():
         while x<=N:
             if arr[x][y] and y+1<=M:
                 y+=1
-            elif y-1>=1 and arr[x][y-1]:
+            elif y-1>=0 and arr[x][y-1]:
                 y-=1
             x+=1
         if y!=i:
@@ -26,20 +26,13 @@ def go(x,y,cnt):
         return
     if cnt>=3:
         return
-    if y>=M:
-        x+=1
+    for i in range(x,N+1):
+        for j in range(y,M+1):
+            if not arr[i][j] and j+1<=M and not arr[i][j+1]:
+                arr[i][j]=1
+                go(i,j+2,cnt+1)
+                arr[i][j]=0
         y=1
-    if x>N:
-        return
-    if arr[x][y]:
-        go(x,y+2,cnt)
-    else:
-        go(x,y+1,cnt)
-    if not arr[x][y] and y+1<=M and not arr[x][y+1]:
-        arr[x][y]=1
-        go(x,y+2,cnt+1)
-        arr[x][y]=0
-
 go(1,1,0)
 if res>3:
     res=-1
