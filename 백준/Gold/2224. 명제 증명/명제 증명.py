@@ -1,27 +1,24 @@
 import sys
 from collections import *
-def input():return sys.stdin.readline().rstrip()
+def input(): return sys.stdin.readline().rstrip()
 N=int(input())
-m=defaultdict(set)
-v=[]
-visited=defaultdict(set)
-
-def go(start,cur):
-    for nxt in m[cur]:
-        if not nxt in visited[start]:
-            visited[start].add(nxt)
-            go(start,nxt)
-    if start!=cur:
-        v.append('%s => %s'%(start,cur))
-a=[]
+g=[[0 for _ in range(62)] for _ in range(62)]
 for i in range(N):
-    s=input().split()
-    a.append((s[0],s[2]))
-    m[s[0]].add(s[2])
-a.sort()
-for cur in a:
-    go(cur[0],cur[0])
+    s=input()
+    a,b,c=s.split()
+    if a==c:continue
+    g[ord(a)-ord('A')][ord(c)-ord('A')]=1
+for k in range(58):
+    for i in range(58):
+        for j in range(58):
+            if i!=j and g[i][k] and g[k][j]:
+                g[i][j]=1
+v=[]
+for i in range(58):
+    for j in range(58):
+        if g[i][j]:
+            s2='%s => %s'%(chr(i+65),chr(j+65))
+            v.append(s2)
 print(len(v))
-v.sort()
 for cur in v:
     print(cur)
