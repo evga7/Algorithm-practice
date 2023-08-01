@@ -10,7 +10,6 @@ def is_inside(x,y,N,M):
     return 0<x<=N and 0<y<=M
 def input():return sys.stdin.readline().rstrip()
 N,M=map(int,input().split())
-INF = sys.maxsize
 g=[[] for _ in range(N+1)]
 for i in range(M):
     a,b,c=map(int,input().split())
@@ -24,7 +23,7 @@ visited=[0 for _ in range(N+1)]
 def solve(start):
     q=[]
     q.append((0,start))
-    dist = [INF for _ in range(N + 1)]
+    dist = [987654321 for _ in range(N + 1)]
     dist[start]=0
     while q:
         cost,x=heapq.heappop(q)
@@ -35,15 +34,16 @@ def solve(start):
                 heapq.heappush(q,(n_cost,nxt))
     return dist
 d=solve(E)
-first_cost=0
+res1=d[S]
 cur=S
-while cur != E:
-    for  next_node, next_cost in g[cur]:
-        if first_cost + next_cost + d[next_node] == d[S]:
-            first_cost += next_cost
-            visited[next_node]=1
-            cur = next_node
+cost=0
+while cur!=E:
+    for nxt,c in g[cur]:
+        if cost+c+d[nxt]==d[S]:
+            visited[nxt]=1
+            cost+=c
+            cur=nxt
             break
 visited[E]=0
 d2=solve(S)
-print(d[S]+d2[E])
+print(res1+d2[E])
