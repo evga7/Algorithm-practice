@@ -1,20 +1,19 @@
 import sys
-from collections import *
 def input():return sys.stdin.readline().rstrip()
-res=-987654321
+INF=sys.maxsize
 N=int(input())
 a=[int(input()) for _ in range(N)]
+dp=[-1 for _ in range(N+1)]
 a.sort()
-dp=[[-987654321 for _ in range(2)]for _ in range(N)]
-def go(idx,op):
-    if idx==N:
+def solve(idx):
+    if idx>=N:
         return 0
-    if dp[idx][op]!=-987654321:
-        return dp[idx][op]
+    if dp[idx]!=-1:
+        return dp[idx]
     ret=-987654321
-    if idx+1<N:
-        ret=max(ret,go(idx+2,1)+a[idx]*a[idx+1])
-    ret=max(ret,go(idx+1,0)+a[idx])
-    dp[idx][op]=ret
-    return dp[idx][op]
-print(go(0,0))
+    if idx+2<=N:
+        ret=max(ret,solve(idx + 2) + (a[idx] * a[idx + 1]))
+    ret=max(ret,solve(idx+1)+a[idx])
+    dp[idx]=ret
+    return dp[idx]
+print(solve(0))
