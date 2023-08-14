@@ -47,7 +47,7 @@ public class Main {
                 int n_x=x+dx[i];
                 int n_y=y+dy[i];
 
-                if (is_inside(n_x,n_y,N,M) && is_inside2(n_x,n_y,A,B) && visited[n_x][n_y]==0)
+                if (is_inside2(n_x,n_y,A,B) && visited[n_x][n_y]==0)
                 {
                     visited[n_x][n_y]=1;
                     pq.offer(new int[]{cost+1,n_x,n_y});
