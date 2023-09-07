@@ -29,18 +29,22 @@ N,M=map(int,input().split())
 chk = [[-1 for _ in range(M + 1)] for _ in range(N + 1)]
 res=0
 m={'R':0,'U':1,'L':2,'D':3}
-
-def go(x,y,pos):
+def go(sx,sy,pos):
     global res
-    if chk[x][y]!=-1:
-        if chk[x][y]==pos:
-            res+=1
-        return
-    idx=m[a[x][y]]
-    n_x=x+dx[idx]
-    n_y=y+dy[idx]
-    chk[x][y]=pos
-    go(n_x,n_y,pos)
+    q=deque()
+    q.append((sx,sy))
+    while q:
+        x,y=q.popleft()
+        idx=m[a[x][y]]
+        n_x=x+dx[idx]
+        n_y=y+dy[idx]
+        if chk[n_x][n_y]!=-1:
+            if chk[n_x][n_y]==pos:
+                res+=1
+            return 0
+        chk[x][y]=pos
+        q.append((n_x,n_y))
+    return 0
 a=[list(input()) for _ in range(N)]
 pos=1
 for i in range(N):
