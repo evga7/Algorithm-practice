@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+#include<unordered_map>
+#define MAX 987654321
+#define MIN -987654321
+#define MOD 1000000000
+#define pb push_back
+#define pob pop_back
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef pair<int, int> pii;
+typedef pair<int, string> pis;
+typedef vector<vector<int>> vvec;
+typedef vector<int> vec;
+typedef vector<pii> vec2;
+typedef vector<vector<pii>> gra;
+int dx[4] = { 0,1,0,-1 };//왼 아 오 위
+int dy[4] = { -1,0,1,0 };
+int N, M, T;
+int num;
+int V, E, K;
+string s;
+bool visited[1001];
+int res;
+bool is_inside(int x, int y)
+{
+    return 0 <= x && x < N && 0 <= y && y < M;
+}
+map<int, int>m;
+multiset<pair<int,int>>mst;
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> N;
+    cin >> s;
+    for (int i=0;i<N;++i)
+    {
+        char cur = s[i];
+        bool start = true;
+        int idx = i;
+        while (true)
+        {
+            if (visited[idx])break;
+            visited[idx] = 1;
+            int n_idx = idx;
+            if (s[idx] == 'E')
+            {
+                if (idx + 1 < N && !visited[idx + 1])
+                    n_idx = idx + 1;
+                else
+                    break;
+            }
+            else if (s[idx] == 'W')
+            {
+                if (idx - 1 >= 0 && !visited[idx - 1])
+                    n_idx = idx - 1;
+                else
+                    break;
+            }
+            
+            idx = n_idx;
+            start = false;
+        }
+        if (!start)
+            res += 1;
+    }
+    cout << res;
+
+
+}
