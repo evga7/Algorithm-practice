@@ -1,10 +1,10 @@
 # [level 2] 짝지어 제거하기 - 12973 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12973?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12973?language=cpp) 
 
 ### 성능 요약
 
-메모리: 14.7 MB, 시간: 87.58 ms
+메모리: 6.54 MB, 시간: 4.76 ms
 
 ### 구분
 
@@ -12,7 +12,7 @@
 
 ### 채점결과
 
-<br/>정확성: 60.2<br/>효율성: 39.8<br/>합계: 100.0 / 100.0
+Empty
 
 ### 문제 설명
 
@@ -57,7 +57,8 @@
 입출력 예 #2<br>
 문자열이 남아있지만 짝지어 제거할 수 있는 문자열이 더 이상 존재하지 않기 때문에 0을 반환합니다.</p>
 
-<p>※ 공지 - 2020년 6월 8일 테스트케이스가 추가되었습니다.</p>
+<p>※ 공지 - 2020년 6월 8일 테스트케이스가 추가되었습니다.<br>
+※ 공지 - 2023년 8월 31일 테스트케이스가 추가되었습니다. 기존에 제출한 코드가 통과하지 못할 수도 있습니다.</p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
