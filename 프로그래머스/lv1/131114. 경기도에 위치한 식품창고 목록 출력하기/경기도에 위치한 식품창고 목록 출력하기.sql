@@ -1,8 +1,4 @@
 -- 코드를 입력하세요
-SELECT warehouse_id,warehouse_name,address,case when
-    freezer_yn is NULL then 'N'
-    else freezer_yn
-    end as freezer_yn
-from food_warehouse
+SELECT WAREHOUSE_ID,WAREHOUSE_NAME,ADDRESS,if(FREEZER_YN is null ,'N' ,FREEZER_YN) from FOOD_WAREHOUSE
 where address like '%경기도%'
-order by warehouse_id
+order by WAREHOUSE_ID
