@@ -1,9 +1,9 @@
 -- 코드를 입력하세요
-SELECT a.CAR_ID,
-max(CASE WHEN '2022-10-16' BETWEEN DATE_FORMAT(START_DATE, '%Y-%m-%d') AND DATE_FORMAT(END_DATE, '%Y-%m-%d')
-THEN '대여중'
-ELSE '대여 가능'
-END) AS 'AVAILABILITY'
-from CAR_RENTAL_COMPANY_RENTAL_HISTORY a
-group by a.car_id
-order by a.CAR_ID desc
+SELECT CAR_ID,case 
+when car_id in (select car_id from CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+               where '2022-10-16' between start_date and end_date) then '대여중'
+else '대여 가능'
+end AVAILABILITY
+from CAR_RENTAL_COMPANY_RENTAL_HISTORY
+group by CAR_ID
+order by CAR_ID desc
