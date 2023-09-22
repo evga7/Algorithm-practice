@@ -1,0 +1,12 @@
+-- 코드를 입력하세요
+select date_format(SALES_DATE,'%Y-%m-%d') SALES_DATE,
+PRODUCT_ID,USER_ID,
+SALES_AMOUNT from ONLINE_SALE
+where SALES_DATE like '2022-03%'
+union
+select date_format(SALES_DATE,'%Y-%m-%d') SALES_DATE,
+PRODUCT_ID,
+null as USER_ID,
+SALES_AMOUNT from OFFLINE_SALE
+where SALES_DATE like '2022-03%'
+ORDER BY SALES_DATE,PRODUCT_ID,USER_ID
