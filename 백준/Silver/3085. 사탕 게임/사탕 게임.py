@@ -8,49 +8,103 @@
 import bisect
 import math
 import re
-import heapq
-import sys
-from collections import *
+
 import itertools
 import collections
-si=sys.stdin.readline
 #sys.setrecursionlimit(10 ** 6)
-dx = [0,1,0,-1]  #  오 아래 왼 위
+from collections import *
+from functools import cmp_to_key
+dx = [0,-1,0,1]  # 오 위 왼 아
 dy = [1,0,-1,0]
+import heapq
+def is_inside(x,y,N,M):
+    return 0<=x<N and 0<=y<M
+
+import sys
+#sys.setrecursionlimit(200000)
 def input():return sys.stdin.readline().rstrip()
+INF=sys.maxsize
 N=int(input())
-arr=[list(input()) for _ in range(N)]
-res=0
-def go():
-    c=0
+a=[list(input()) for _ in range(N)]
+res=0 
+
+def allchk():
+    global res
     for i in range(N):
-        a1=arr[i]
-        a2=list(zip(*arr))[i]
-        cc=1
-        for i in range(1,len(a1)):
-            if a1[i]==a1[i-1]:
-                cc+=1
-                c=max(c,cc)
+        temp=a[i]
+        temp2 = list(zip(*a))[i]
+        cnt=1
+        cnt2=1
+        for j in range(1,N):
+            if temp2[j]==temp2[j-1]:
+                cnt2+=1
+                res=max(res,cnt2)
             else:
-                cc=1
-        cc=1
-        for i in range(1,len(a2)):
-            if a2[i]==a2[i-1]:
-                cc+=1
-                c=max(c,cc)
+                cnt2=1
+            if temp[j]==temp[j-1]:
+                cnt+=1
+                res=max(res,cnt)
             else:
-                cc=1
-    return c
-res=max(res,go())
+                cnt=1
+def chk(x,y,op):
+    global res
+    if op:
+        temp,temp2=a[x],a[x+1]
+        temp3 = list(zip(*a))[y]
+        cnt=1
+        cnt2=1
+        cnt3=1
+        for i in range(1,N):
+            if temp2[i]==temp2[i-1]:
+                cnt2+=1
+                res=max(res,cnt2)
+            else:
+                cnt2=1
+            if temp[i]==temp[i-1]:
+                cnt+=1
+                res=max(res,cnt)
+            else:
+                cnt=1
+            if temp3[i]==temp3[i-1]:
+                cnt3+=1
+                res=max(res,cnt3)
+            else:
+                cnt3=1
+    else:
+        temp = list(zip(*a))[y+1]
+        temp2 = list(zip(*a))[y]
+        temp3=a[x]
+        cnt=1
+        cnt2=1
+        cnt3=1
+        for i in range(1,N):
+            if temp2[i]==temp2[i-1]:
+                cnt2+=1
+                res=max(res,cnt2)
+            else:
+                cnt2=1
+            if temp[i]==temp[i-1]:
+                cnt+=1
+                res=max(res,cnt)
+            else:
+                cnt=1
+            if temp3[i]==temp3[i-1]:
+                cnt3+=1
+                res=max(res,cnt3)
+            else:
+                cnt3=1
+    
+def go(x,y):
+    if y+1<N and a[x][y]!=a[x][y+1]:
+        a[x][y],a[x][y+1]=a[x][y+1],a[x][y]
+        chk(x,y,0)
+        a[x][y], a[x][y + 1] = a[x][y + 1], a[x][y]
+    if x+1<N and a[x][y]!=a[x+1][y]:
+        a[x][y], a[x+1][y] = a[x+1][y], a[x][y]
+        chk(x,y,1)
+        a[x][y], a[x+1][y] = a[x+1][y], a[x][y]
+allchk()
 for i in range(N):
-    for j in range(N-1):
-        cur=arr[i][j]
-        if cur!=arr[i][j+1]:
-            arr[i][j],arr[i][j+1]=arr[i][j+1],arr[i][j]
-            res=max(res,go())
-            arr[i][j],arr[i][j+1]=arr[i][j+1],arr[i][j]
-        if i+1<N and cur!=arr[i+1][j]:
-            arr[i][j], arr[i+1][j] = arr[i+1][j], arr[i][j]
-            res=max(res,go())
-            arr[i][j], arr[i+1][j] = arr[i+1][j], arr[i][j]
+    for j in range(N):
+        go(i,j)
 print(res)
