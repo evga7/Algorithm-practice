@@ -10,8 +10,7 @@ def go(num,idx):
     st.add(num)
     for i in range(idx,-1,-1):
         go(num*10+i,i-1)
-for i in range(9,-1,-1):
-    go(0,i)
+go(0,9)
 a=sorted(list(st))
 if N>=len(st):
     print(-1)
