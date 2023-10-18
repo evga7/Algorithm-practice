@@ -1,5 +1,7 @@
 import sys
+#sys.setrecursionlimit(100000)
 def input():return sys.stdin.readline().rstrip()
+INF=sys.maxsize
 N=int(input())
 st=set()
 def go(num,idx):
@@ -9,10 +11,10 @@ def go(num,idx):
     for i in range(idx,-1,-1):
         go(num*10+i,i-1)
 for i in range(9,-1,-1):
-    go(i,i-1)
-a=list(st)
-a.sort()
-if N>=len(a):
+    go(0,i)
+a=sorted(list(st))
+if N>=len(st):
     print(-1)
 else:
     print(a[N])
+        
