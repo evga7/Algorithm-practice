@@ -16,7 +16,7 @@ for i in range(M):
 def go(mid):
     q=[]
     q.append((0,C,A))
-    dist = [987654321 for _ in range(N + 1)]
+    dist = [int(1e15) for _ in range(N + 1)]
     dist[A] = 0
     visited = [0 for _ in range(N + 1)]
     while q:
