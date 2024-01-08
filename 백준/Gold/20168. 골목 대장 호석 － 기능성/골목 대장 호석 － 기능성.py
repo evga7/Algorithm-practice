@@ -1,3 +1,6 @@
+import heapq
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
 import sys
 from collections import *
 def input():return sys.stdin.readline().rstrip()
@@ -7,11 +10,11 @@ for i in range(M):
     a,b,cost=map(int,input().split())
     g[a].append((b,cost))
     g[b].append((a, cost))
-q=deque()
-dist=[987654321 for _ in range(N+1)]
-q.append((S,0,0))
+q=[]
+dist=[[0 for _ in range(N+1)] for _ in range(N+1)]
+q.append((0,S,0))
 while q:
-    x,cost,money=q.popleft()
+    cost,x,money=heapq.heappop(q)
     if x==E:
         print(cost)
         exit(0)
@@ -19,7 +22,7 @@ while q:
         nxt=cur[0]
         n_money=money+cur[1]
         n_cost=max(cost,cur[1])
-        if n_money<=C and dist[nxt]>n_cost:
-            dist[nxt]=n_cost
-            q.append((nxt,n_cost,n_money))
+        if n_money<=C and not dist[x][nxt]:
+            dist[x][nxt]=1
+            heapq.heappush(q,(n_cost,nxt,n_money))
 print(-1)
