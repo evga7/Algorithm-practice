@@ -1,29 +1,28 @@
 import sys
-def input(): return sys.stdin.readline().rstrip()
-N,H=map(int,input().split())
-arr=[list(map(int,input().split())) for _ in range(N)]
+#sys.setrecursionlimit(100000)
+def input():return sys.stdin.readline().rstrip()
+#map(int,input().split())
+INF=sys.maxsize
+N,M=map(int,input().split())
+a=[list(map(int,input().split())) for _ in range(N)]
 left=0
 right=int(1e19)
 while left<=right:
     mid=left+right>>1
-    f=0
-    HP=mid
-    at=H
-    for cur in arr:
-        t,a,h=cur[0],cur[1],cur[2]
-        if t==1:
-            cnt=(h + (at - 1)) // at
-            cnt-=1
-            if HP<cnt*a:
-                f=1
-                break
-            else:
-                HP-=cnt*a
+    H=mid
+    At=M
+    for cur in a:
+        op,A,T=cur[0],cur[1],cur[2]
+        if H<=0:
+            break
+        if op==1:
+            cnt=(T+At-1)//At
+            H-=(cnt-1)*A
         else:
-            at+=a
-            HP=min(mid,HP+h)
-    if f:
-        left=mid+1
-    else:
+            At+=A
+            H=min(H+T,mid)
+    if H>0:
         right=mid-1
-print(left+1)
+    else:
+        left=mid+1
+print(left)
