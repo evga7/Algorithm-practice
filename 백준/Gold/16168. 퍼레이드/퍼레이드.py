@@ -1,5 +1,8 @@
 import sys
-def input(): return sys.stdin.readline().rstrip()
+#sys.setrecursionlimit(100000)
+def input():return sys.stdin.readline().rstrip()
+#map(int,input().split())
+INF=sys.maxsize
 N,M=map(int,input().split())
 p=[i for i in range(N+1)]
 def find(x):
@@ -11,8 +14,10 @@ def uni(x,y):
     x=find(x)
     y=find(y)
     if x!=y:
-        p[y]=x
-        return True
+        if x>y:
+            p[y]=x
+        else:
+            p[x]=y
     return False
 c=[0 for _ in range(N+1)]
 for i in range(M):
