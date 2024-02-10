@@ -1,16 +1,21 @@
 from collections import *
-from itertools import *
 import sys
-def input():return sys.stdin.readline().rstrip()
+# sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+#
+INF = sys.maxsize
 N,M=map(int,input().split())
 a=list(map(int,input().split()))
-res=0
+b=a
+for i in range(1,N):
+    b[i]+=b[i-1]
 m=defaultdict(int)
-b=list(accumulate(a))
-
-for cur in b:
+res=0
+for cur in a:
     if cur==M:
         res+=1
-    res+=m[cur-M]
+for cur in b:
+    if cur-M in m:
+        res+=m[cur-M]
     m[cur]+=1
 print(res)
