@@ -1,19 +1,21 @@
 import sys
-#sys.setrecursionlimit(100000)
-def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
+# sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+#
+INF = sys.maxsize
 N=int(input())
-st=set()
-def go(num,idx):
-    if num in st:
-        return
-    st.add(num)
+v=[]
+def go(idx,cnt,num):
+    if cnt==11 or (not num and cnt>1):
+        return 
+    if num:
+        v.append(num)
     for i in range(idx,-1,-1):
-        go(num*10+i,i-1)
-go(0,9)
-a=sorted(list(st))
-if N>=len(st):
-    print(-1)
+        go(i-1,cnt+1,(num*10)+i)
+go(9,0,0)
+v.append(0)
+v.sort()
+if len(v)>N:
+    print(v[N])
 else:
-    print(a[N])
-        
+    print(-1)
