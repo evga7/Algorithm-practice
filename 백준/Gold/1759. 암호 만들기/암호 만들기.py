@@ -1,27 +1,21 @@
 import sys
-def input(): return sys.stdin.readline().rstrip()
+def input():return sys.stdin.readline().rstrip()
 N,M=map(int,input().split())
-b=['' for _ in range(M)]
 a=list(input().split())
 a.sort()
-def chk(s):
-    if s=='a' or s=='e' or s=='i' or s=='o' or s=='u':
-        return True
-    return False
-def go(idx,cnt):
+def chk(c):
+    if c=='a' or c=='e' or c=='i' or c=='o' or c=='u':
+        return 1
+    return 0
+def go(idx,cnt,A,B,S):
     if cnt==N:
-        aa,bb=0,0
-        for i in range(N):
-            cur=b[i]
-            if chk(cur):
-                aa+=1
-            else:
-                bb+=1
-        if aa>=1 and bb>=2:
-            print(''.join(b))
+        if A>0 and B>1:
+            print(S)
         return
     for i in range(idx,M):
-        b[cnt]=a[i]
-        go(i+1,cnt+1)
-        b[cnt]=''
-go(0,0)
+        if chk(a[i]):
+            go(i+1,cnt+1,A+1,B,S+a[i])
+        else:
+            go(i + 1, cnt + 1, A , B+1, S + a[i])
+go(0,0,0,0,"")
+        
