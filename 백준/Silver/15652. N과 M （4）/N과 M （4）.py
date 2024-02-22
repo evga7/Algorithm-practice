@@ -1,13 +1,14 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+def input():return sys.stdin.readline().rstrip() 
 N,M=map(int,input().split())
-v=[0 for _ in range(M)]
-a=[i+1 for i in range(N)]
+v=[]
+visited=[0 for _ in range(N+1)]
 def go(idx,cnt):
     if cnt==M:
         print(*v)
         return
-    for i in range(idx,N):
-        v[cnt]=a[i]
+    for i in range(idx,N+1):
+        v.append(i)
         go(i,cnt+1)
-go(0,0)
+        v.pop()
+go(1,0)
