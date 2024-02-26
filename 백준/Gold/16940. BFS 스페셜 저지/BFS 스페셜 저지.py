@@ -16,6 +16,7 @@ if a[0]!=1:
     exit(0)
 idx=1
 q=deque()
+
 q.append(1)
 while q:
     x=q.popleft()
