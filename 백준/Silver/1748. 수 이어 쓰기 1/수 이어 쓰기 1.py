@@ -1,18 +1,17 @@
 import sys
-def input():return sys.stdin.readline().rstrip() 
+def input(): return sys.stdin.readline().rstrip()
 N=int(input())
-res=9
-cnt=0
-cnt2=100
-l=2
+res=0
 if N<10:
     print(N)
     exit(0)
-for i in range(10,N+1):
-    cnt+=1
-    res+=l
-    if cnt==int(cnt2*0.9):
-        l+=1
-        cnt2*=10
-        cnt=0
+else:
+    res=9
+    num=100
+    cnt=2
+    for i in range(10,N+1):
+        if i==num:
+            cnt+=1
+            num*=10
+        res+=cnt
 print(res)
