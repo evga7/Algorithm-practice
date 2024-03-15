@@ -1,22 +1,22 @@
 import sys
 # sys.setrecursionlimit(100000)
 def input(): return sys.stdin.readline().rstrip()
-#
-INF = sys.maxsize
 N,R,C=map(int,input().split())
 res=0
-def go(x,y,s):
+def go(s,r,c):
     global res
-    if x==R and y==C:
+    if r==R and c==C:
         print(res)
         exit(0)
-    if R<x+s and x<=R and y<=C and y+s>C:
+    if R<r+s and r<=R and c<=C and C<c+s:
         half=s//2
-        go(x,y,half)
-        go(x,y+half,half)
-        go(x+half, y,half)
-        go(x+half,y+half,half)
+        go(half,r,c)
+        go(half, r, c+half)
+        go(half, r + half, c)
+        go(half, r+half, c + half)
     else:
         res+=s*s
-    
-go(0,0,1<<N)
+S=pow(2,N)
+go(S,0,0)
+print(res)
+        
