@@ -1,37 +1,39 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
-s=input()
-f1=0
-f2=0
-for cur in s:
-    if cur.isupper():
-        f1=1
-    if cur=='_':
-        f2=1
-if (f1 and f2) or s[0].isupper():
-    print("Error!")
-    exit(0)
-res=''
-if f1:
-    for i in range(0,len(s)):
-        if s[i].isupper():
-            res+='_'+s[i].lower()
+def input(): return sys.stdin.readline().rstrip()
+S=input()
+f=0
+res=""
+ff=0
+if S[0].isupper():
+    ff=1
+elif S.find('_')>=0:
+    for i in range(len(S)):
+        cur=S[i]
+        if cur.isupper():
+            ff = 1
+            break
+        if cur=='_':
+            if i==0 or i==(len(S)-1):
+                ff=1
+                break
+            f+=1
             continue
-        res+=s[i]
-
-
+        if f:
+            if f>1:
+                ff=1
+                break
+            res+=cur.upper()
+            f=0
+        else:
+            res+=cur
 else:
-    fl=0
-    for i in range(0,len(s)):
-        cur=s[i]
-        if s[i]=='_':
-            if i-1<0 or i+1>=len(s) or not s[i-1].islower() or not s[i+1].islower():
-                print("Error!")
-                exit(0)
-            f1=1
+    for cur in S:
+        if cur.isupper():
+            res+='_'+cur.lower()
             continue
-        if f1:
-            cur=s[i].upper()
-            f1=0
-        res+=cur
-print(res)
+        else:
+            res+=cur
+if ff:
+    print("Error!")
+else:
+    print(res)
