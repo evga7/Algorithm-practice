@@ -30,7 +30,7 @@ def go(mid):
             if x[1]<=mid and n_cost<=C and dist[nxt]>n_cost :
                 dist[nxt]=n_cost
                 heapq.heappush(q,(n_cost,nxt))
-res=987654321
+res=9876543210
 while left<=right:
     mid=left+right>>1
     if go(mid):
@@ -38,6 +38,6 @@ while left<=right:
         res=min(res,mid)
     else:
         left=mid+1
-if res==987654321:
+if res==9876543210:
     res=-1
 print(res)
