@@ -16,8 +16,9 @@ for i in range(M):
     g[b].append((a,c))
 left=0
 right=C
+INF=sys.maxsize
 def go(mid):
-    dist=[9876543210 for _ in range(N+1)]
+    dist=[INF for _ in range(N+1)]
     q=[]
     q.append((0,A))
     while q:
@@ -30,7 +31,7 @@ def go(mid):
             if x[1]<=mid and n_cost<=C and dist[nxt]>n_cost :
                 dist[nxt]=n_cost
                 heapq.heappush(q,(n_cost,nxt))
-res=9876543210
+res=INF
 while left<=right:
     mid=left+right>>1
     if go(mid):
@@ -38,6 +39,6 @@ while left<=right:
         res=min(res,mid)
     else:
         left=mid+1
-if res==9876543210:
+if res==INF:
     res=-1
 print(res)
