@@ -8,16 +8,13 @@ def go(mid):
     q=[]
     for i in range(mid):
         q.append(0)
-    cnt=0
     for cur in a:
         x=heapq.heappop(q)
         if x+cur<=M:
             heapq.heappush(q,(x+cur))
         else:
             return False
-    if cnt+len(q)<=mid:
-        return True
-    return False
+    return True
         
 while left<=right:
     mid=left+right>>1
