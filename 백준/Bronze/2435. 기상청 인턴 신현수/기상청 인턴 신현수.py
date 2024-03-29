@@ -1,19 +1,9 @@
-import sys
-#sys.setrecursionlimit(200000)
-def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
 N,M=map(int,input().split())
 a=list(map(int,input().split()))
-left=0
-s=sum(a[:M])
-right=M-1
+s=[0 for _ in range(N+1)]
+for i in range(1,N+1):
+    s[i]=s[i-1]+a[i-1]
 res=-987654321
-while True:
-    res=max(res,s)
-    right+=1
-    if right>=N:
-        break
-    s+=a[right]
-    s-=a[left]
-    left+=1
+for i in range(M,N+1):
+    res=max(res,s[i]-s[i-M])
 print(res)
