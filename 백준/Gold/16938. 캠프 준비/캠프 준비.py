@@ -1,24 +1,19 @@
 import sys
-# sys.setrecursionlimit(100000)
-def input(): return sys.stdin.readline().rstrip()
-#
-INF = sys.maxsize
+def input():
+    return sys.stdin.readline().rstrip()
 N,L,R,X=map(int,input().split())
 a=list(map(int,input().split()))
 res=0
-visited=[0 for _ in range(N)]
-def go(idx,s,mi,mx,cnt):
-    if L<=s<=R and (mx-mi)>=X and cnt>=2:
+def go(idx,mx,mi,cnt,s):
+    if cnt>=2 and L<=s<=R and mx-mi>=X:
         global res
         res+=1
-    if idx==N or s>R:
+    if idx==N:
         return
     for i in range(idx,N):
-        if visited[i]:continue
-        visited[i]=1
-        go(i+1,s+a[i],min(mi,a[i]),max(mx,a[i]),cnt+1)
-        visited[i]=0
-        
+        n_mx=max(mx,a[i])
+        n_mi =min(mi, a[i])
+        if s+a[i]<=R:
+            go(i+1,n_mx,n_mi,cnt+1,s+a[i])
 go(0,0,987654321,0,0)
 print(res)
-    
