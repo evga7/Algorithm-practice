@@ -1,14 +1,13 @@
 import sys
-#sys.setrecursionlimit(100000)
-def input(): return sys.stdin.readline().rstrip()
+def input():return sys.stdin.readline().rstrip()
+MAX=sys.maxsize
 N=int(input())
 a=list(map(int,input().split()))
-a.sort()
-pos=0
 res=0
-cnt=0
+s=0
+a.sort()
 for cur in a:
-    res+=cnt+cur
-    cnt+=cur
-    pos=cur
+    res+=s
+    s+=cur
+    res+=cur
 print(res)
