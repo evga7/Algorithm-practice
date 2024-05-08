@@ -4,5 +4,6 @@ def solution(a, b, n):
         c=n//a
         answer+=c*b
         cc=n%a
-        n=(c*b)+cc
+        n//=a
+        n+=cc+(c*b)
     return answer
