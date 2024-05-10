@@ -1,3 +1,3 @@
 -- 코드를 작성해주세요
-select sum(price) total_price from item_info a
-where a.rarity='LEGEND'
+select sum(price) total_price from item_info
+where rarity='LEGEND'
