@@ -1,22 +1,9 @@
 def solution(s):
     answer = []
+    s=s.lstrip('{').rstrip('}').split('},{')
     v=[]
-    t=""
-    temp=[]
     for cur in s:
-        if cur.isdigit():
-            t+=cur
-        elif cur==',':
-            if t:
-                temp.append(int(t))
-                t=""
-        elif cur=='}':
-            if t:
-                temp.append(int(t))
-                t=""
-            if temp:
-                v.append(temp)
-                temp=[]
+        v.append(list(map(int,cur.split(','))))
     v.sort(key=lambda x:len(x))
     st=set()
     for cur in v:
