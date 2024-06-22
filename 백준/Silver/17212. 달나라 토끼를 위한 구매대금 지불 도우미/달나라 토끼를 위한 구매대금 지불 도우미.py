@@ -1,18 +1,20 @@
 import sys
 sys.setrecursionlimit(100000)
-def input(): return sys.stdin.readline().rstrip()
+def input():return sys.stdin.readline().rstrip()
+MAX=sys.maxsize
+MOD=int(1e9)+9
+a=[7,5,2,1]
 N=int(input())
-dp = [-1 for _ in range(N + 1)]
-a=[1,2,5,7]
-def go(idx):
-    if idx == N:
+dp=[-1 for _ in range(100001)]
+def solve(idx):
+    if idx==0:
         return 0
-    if dp[idx] != -1:
+    if dp[idx]!=-1:
         return dp[idx]
     ret=987654321
-    for i in range(4):
-        if idx+a[i]<=N:
-            ret=min(ret,go(idx+a[i])+1)
+    for cur in a:
+        if idx-cur>=0:
+            ret=min(ret,solve(idx-cur)+1)
     dp[idx]=ret
     return dp[idx]
-print(go(0))
+print(solve(N))
