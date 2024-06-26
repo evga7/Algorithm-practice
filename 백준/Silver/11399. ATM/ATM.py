@@ -1,13 +1,13 @@
 import sys
 def input():return sys.stdin.readline().rstrip()
 MAX=sys.maxsize
+MOD=int(1e9)+9
 N=int(input())
 a=list(map(int,input().split()))
-res=0
-s=0
 a.sort()
+res=0
+c=0
 for cur in a:
-    res+=s
-    s+=cur
-    res+=cur
+    c+=cur
+    res+=c
 print(res)
