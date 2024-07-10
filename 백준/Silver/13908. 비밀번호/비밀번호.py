@@ -1,22 +1,23 @@
 import sys
-from collections import *
-def input(): return sys.stdin.readline().rstrip()
+def input():return sys.stdin.readline().rstrip()
+MAX=sys.maxsize
+MOD=int(1e9)+9
 N,M=map(int,input().split())
-a=set(map(int,input().split()))
-b=[i for i in range(10)]
+a=list(input().split())
+st = set(a)
 res=0
-v=[]
-def go(idx,cnt):
+def chk(s):
+    for cur in st:
+        if not cur in s:
+            return False
+    return True
+def go(cnt,s):
     if cnt==N:
-        global res
-        for cur in a:
-            if not cur in v:
-                return
-        res+=1
+        if chk(s):
+            global res
+            res+=1
         return
     for i in range(10):
-        v.append(i)
-        go(i,cnt+1)
-        v.pop()
-go(0,0)
+        go(cnt+1,s+str(i))
+go(0,"")
 print(res)
