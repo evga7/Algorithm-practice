@@ -1,35 +1,61 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
 N,M=map(int,input().split())
 a=[list(map(int,input().split())) for _ in range(N)]
+v=[[0 for _ in range(M+1)] for _ in range(N+1)]
+def chk(num,x,y,op):
+    s=a[x][y]*2
+    if num==0:
+        if x+1<N and y-1>=0:
+            if op:
+                if not v[x+1][y] and not v[x][y-1]:
+                    v[x][y],v[x+1][y],v[x][y-1]=op,op,op
+                    return s + a[x + 1][y] + a[x][y - 1]
+            else:
+                v[x][y], v[x + 1][y], v[x][y - 1] = op, op, op
+        return -1
+    if num==1:
+        if x-1>=0 and y-1>=0:
+            if op:
+                if not v[x-1][y] and not v[x][y-1]:
+                    v[x][y],v[x-1][y],v[x][y-1]=op,op,op
+                    return s + a[x - 1][y] + a[x][y - 1]
+            else:
+                v[x][y], v[x - 1][y], v[x][y - 1] = op, op, op
+        return -1
+    if num==2:
+        if x-1>=0 and y+1<M:
+            if op:
+                if not v[x-1][y] and not v[x][y+1]:
+                    v[x][y],v[x-1][y],v[x][y+1]=op,op,op
+                    return s + a[x - 1][y] + a[x][y + 1]
+            else:
+                v[x][y], v[x - 1][y], v[x][y + 1] = op, op, op
+        return -1
+    if num==3:
+        if x+1<N and y+1<M:
+            if op:
+                if not v[x+1][y] and not v[x][y+1]:
+                    v[x][y],v[x+1][y],v[x][y+1]=op,op,op
+                    return s + a[x + 1][y] + a[x][y + 1]
+            else:
+                v[x][y], v[x + 1][y], v[x][y + 1] = op, op, op
+        return -1
+
 res=0
-dx=[[0,1],[0,-1],[-1,0],[1,0]]
-dy=[[-1,0],[-1,0],[0,1],[0,1]]
-visited=[[0 for _ in range(M)] for _ in range(N)]
-def go2(op,x,y,op2):
-    n_x = x + dx[op][0]
-    n_y = y + dy[op][0]
-    n_x2 = x + dx[op][1]
-    n_y2 = y + dy[op][1]
-    visited[x][y]=op2
-    visited[n_x][n_y],visited[n_x2][n_y2]=op2,op2
-    return a[x][y]*2+a[n_x][n_y]+a[n_x2][n_y2]
-
-
-
-def go(x,s):
+def go(x,score):
     global res
-    res=max(res,s)
+    res=max(res,score)
     for i in range(x,N):
         for j in range(M):
             for k in range(4):
-                n_x=i+dx[k][0]
-                n_y=j+dy[k][0]
-                n_x2 = i + dx[k][1]
-                n_y2 = j + dy[k][1]
-                if not visited[i][j]  and 0<=n_x<N and 0<=n_y<M and 0<=n_x2<N and 0<=n_y2<M and not visited[n_x][n_y] and not visited[n_x2][n_y2]:
-                    ss=go2(k,i,j,1)
-                    go(i,s+ss)
-                    go2(k,i,j,0)
+                if v[i][j]:continue
+                s=chk(k,i,j,1)
+                if s!=-1:
+                    go(i,score+s)
+                    chk(k,i,j,0)
+
 go(0,0)
 print(res)
