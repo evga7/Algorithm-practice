@@ -1,23 +1,25 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
 N=int(input())
-arr=list(map(int,input().split()))
+a=[0]+list(map(int,input().split()))
 M=int(input())
 for i in range(M):
-    a,b=map(int,input().split())
-    if a==1:
-        for j in range(b-1,N,b):
-            arr[j]^=1
+    q,w=map(int,input().split())
+    if q==1:
+        for j in range(w,N+1,w):
+            a[j]=1-a[j]
     else:
-        b-=1
-        left=b
-        right=b
-        while 0<=left-1 and right+1<N and arr[left-1]==arr[right+1]:
+        a[w]=1-a[w]
+        left=w
+        right=w
+        while left-1>0 and right+1<=N and a[left-1]==a[right+1]:
             left-=1
             right+=1
-        for j in range(left,right+1):
-            arr[j]^=1
+            a[left]=1-a[left]
+            a[right]=1-a[right]
 for i in range(1,N+1):
-    print(arr[i-1],end=' ')
+    print(a[i],end=' ')
     if not i%20:
         print('')
