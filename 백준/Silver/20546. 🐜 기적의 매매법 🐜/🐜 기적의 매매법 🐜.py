@@ -1,29 +1,33 @@
 import sys
 def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
 N=int(input())
-J,S=N,N
 a=list(map(int,input().split()))
-j,s=0,0
-for i in range(14):
-    cur=a[i]
-    if i-3>=0:
-        if a[i-3]<a[i-2]<a[i-1]:
-            if s:
-                S+=s*cur
-                s=0
-        elif a[i-3]>a[i-2]>a[i-1]:
-            cnt = S // cur
-            s += cnt
-            S -= cur * cnt
-    if cur<=J:
-        cnt=J//cur
-        j+=cnt
-        J-=cur*cnt
-res1=j*a[-1]+J
-res2=s*a[-1]+S
-if res1>res2:
-    print("BNP")
-elif res1<res2:
-    print("TIMING")
+jun_cnt=0
+jun_money=N
+sung_cnt=0
+sung_money=N
+for cur in a:
+    if cur<=jun_money:
+        j_cnt=jun_money//cur
+        jun_cnt+=j_cnt
+        jun_money-=cur*j_cnt
+for i in range(3,14):
+    if a[i-3]<a[i-2]<a[i-1]:
+        sung_money+=sung_cnt*a[i]
+        sung_cnt=0
+    if a[i-3]>a[i-2]>a[i-1]:
+        if sung_money>=a[i]:
+            s_cnt=sung_money // a[i]
+            sung_cnt += s_cnt
+            sung_money -= (s_cnt * a[i])
+jun_money+=a[13]*jun_cnt
+sung_money+=a[13]*sung_cnt
+if jun_money>sung_money:
+    res="BNP"
+elif jun_money<sung_money:
+    res="TIMING"
 else:
-    print("SAMESAME")
+    res="SAMESAME"
+print(res)
