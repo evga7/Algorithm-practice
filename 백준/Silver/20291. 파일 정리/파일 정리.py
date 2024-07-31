@@ -1,25 +1,20 @@
 from collections import *
-from functools import cmp_to_key
-from typing import List
-
-dx = [0,-1,0,1]  # 오 위 왼 아
-dy = [1,0,-1,0]
-import heapq
-def is_inside(x,y,N,M):
-    return 0<=x<N and 0<=y<M
-
-import sys
 #sys.setrecursionlimit(100000)
+dx = [1, -1, 0, 0]  # 아 위 오 왼
+dy = [0, 0, 1, -1]
+def is_inside(x, y, N, M):
+    return 0 <= x < N and 0 <= y < M
+
+import math
+import sys
 def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
+MAX=sys.maxsize
+MOD=int(1e9)+9
 N=int(input())
 m=defaultdict(int)
 for i in range(N):
-    s=input().split('.')
-    m[s[1]]+=1
-a=[]
-for cur in m.keys():
-    a.append((cur,m[cur]))
-a.sort()
-for cur in a:
-    print(cur[0],cur[1])
+    s=input()
+    ss=s[s.index('.')+1:]
+    m[ss]+=1
+for cur in sorted(list(m.keys())):
+    print(cur,m[cur])
