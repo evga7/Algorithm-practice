@@ -1,14 +1,17 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+# sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+#
+INF = sys.maxsize
 N=int(input())
-a=[int(input()) for _ in range(N)]
-a.sort(reverse=True)
 cnt=0
 res=0
-for i,cur in enumerate(a):
-    res+=cur
+a=[int(input()) for _ in range(N)]
+a.sort(reverse=True)
+for cur in a:
     cnt+=1
     if cnt==3:
-        res-=cur
         cnt=0
+        continue
+    res+=cur
 print(res)
