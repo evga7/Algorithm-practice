@@ -1,7 +1,3 @@
-import heapq
-def is_inside(x, y, N, M):
-    return 0 <= x < N and 0 <= y < M
-import copy
 from collections import *
 import bisect
 import sys
@@ -11,18 +7,18 @@ MAX = sys.maxsize
 MOD = int(1e9) + 9
 T=int(input())
 def go():
-    q=[]
+    q=deque()
     for i in range(1,N+1):
         if not p[i]:
-            q.append((a[i-1],i))
+            q.append(i)
             dist[i]=a[i-1]
     while q:
-        cost,cur=heapq.heappop(q)
+        cur=q.popleft()
         for nxt in g[cur]:
             p[nxt]-=1
-            if not p[nxt] and not dist[nxt]:
-                heapq.heappush(q,(cost+a[nxt-1],nxt))
-                dist[nxt]=cost+a[nxt-1]
+            if not p[nxt]:
+                q.append(nxt)
+            dist[nxt]=max(dist[nxt],dist[cur]+a[nxt-1])
 
 while T:
     T-=1
