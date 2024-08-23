@@ -18,13 +18,11 @@ def go():
             dist[i]=a[i-1]
     while q:
         cost,cur=heapq.heappop(q)
-        if dist[cur]<cost:continue
         for nxt in g[cur]:
             p[nxt]-=1
-            n_cost=cost+a[nxt-1]
-            if not p[nxt] and dist[nxt]>n_cost:
-                heapq.heappush(q,(n_cost,nxt))
-                dist[nxt]=n_cost
+            if not p[nxt] and not dist[nxt]:
+                heapq.heappush(q,(cost+a[nxt-1],nxt))
+                dist[nxt]=cost+a[nxt-1]
 
 while T:
     T-=1
@@ -37,6 +35,6 @@ while T:
         g[q].append(w)
         p[w]+=1
     W=int(input())
-    dist=[987654321 for _ in range(N+1)]
+    dist=[0 for _ in range(N+1)]
     go()
     print(dist[W])
