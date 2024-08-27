@@ -1,36 +1,30 @@
-
-
 import sys
 #sys.setrecursionlimit(100000)
-def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
 N,M=map(int,input().split())
-g=[[] for _ in range(N+1)]
-dist=[[987654321 for _ in range(N+1)] for _ in range(N+1)]
-def go():
-    for k in range(1,N+1):
-        for i in range(1,N+1):
-            for j in range(1,N+1):
-                if i==j:continue
-                if dist[i][k]+dist[k][j]<dist[i][j]:
-                    dist[i][j]=dist[i][k]+dist[k][j]
-    
-        
+a=[[987654321 for _ in range(N+1)] for _ in range(N+1)]
 for i in range(M):
-    a,b,c=map(int,input().split())
-    dist[a][b]=c
+    q,w,e=map(int,input().split())
+    a[q][w]=e
 K=int(input())
-a=list(map(int,input().split()))
-go()
-m=987654321
-dist2=[0 for _ in range(N+1)]
+b=list(map(int,input().split()))
 for i in range(1,N+1):
-    b=0
-    for cur in a:
-        if i==cur:continue
-        b=max(b,dist[cur][i]+dist[i][cur])
-    dist2[i]=b
-m=min(dist2[1:])
+    a[i][i]=0
+for k in range(1,N+1):
+    for i in range(1,N+1):
+        for j in range(1,N+1):
+            if a[i][k]+a[k][j]<a[i][j]:
+                a[i][j]=a[i][k]+a[k][j]
+res1=987654321
+v=[]
 for i in range(1,N+1):
-    if m==dist2[i]:
-        print(i,end=' ')
+    s=0
+    for cur in b:
+        s=max(s,a[i][cur]+a[cur][i])
+    if res1>=s:
+        if res1>s:v.clear()
+        res1=s
+        v.append(i)
+print(*v)
