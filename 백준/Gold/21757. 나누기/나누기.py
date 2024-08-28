@@ -9,7 +9,7 @@ MOD = int(1e9) + 9
 N=int(input())
 a=list(map(int,input().split()))
 b=[0]+list(itertools.accumulate(a))
-dp=[[defaultdict(int) for _ in range(N+2)] for _ in range(4)]
+dp=[[defaultdict(int) for _ in range(N+2)] for _ in range(5)]
 def go(cnt,idx,num):
     if cnt>4:
         return 0
