@@ -1,17 +1,22 @@
+import itertools
+import math
 import sys
-#sys.setrecursionlimit(200000)
-def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
-a,b=map(int,input().split())
-if a==b:
-    print(0)
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
+N,M=map(int,input().split())
+s=M-N
+if s<=3:
+    print(s)
     exit(0)
-s=int((b-a)**0.5)
-if s**2==(b-a):
-    print(2*s-1)
+n=int(math.sqrt(s))
+e=s-n**2
+res=n*2-1
+if math.pow(n,2)==s:
+    print(res)
+elif e<=n:
+    print(res+1)
 else:
-    z=(b-a)-s**2
-    if (z<=s):
-        print(2*s)
-    else:
-        print(2*s+1)
+    print(res+2)
+
