@@ -1,12 +1,17 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
-dp=[[0 for _ in range(301)] for _ in range(301)]
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
+def is_inside(x,y,N,M):
+    return 0<=x<N and 0<=y<M
 N,M=map(int,input().split())
-arr=[list(map(int,input().split())) for _ in range(N)]
+a=[list(map(int,input().split())) for _ in range(N)]
+b=[[0 for _ in range(M+1)] for _ in range(N+1)]
 K=int(input())
 for i in range(1,N+1):
     for j in range(1,M+1):
-        dp[i][j]=arr[i-1][j-1]+dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1]
+        b[i][j]=b[i-1][j]+b[i][j-1]-b[i-1][j-1]+a[i-1][j-1]
 for i in range(K):
-    x1,y1,x2,y2=map(int,input().split())
-    print(dp[x2][y2]+dp[x1-1][y1-1]-dp[x1-1][y2]-dp[x2][y1-1])
+    sx,sy,ex,ey=map(int,input().split())
+    print(b[ex][ey]-b[ex][sy-1]-b[sx-1][ey]+b[sx-1][sy-1])
