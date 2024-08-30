@@ -7,22 +7,22 @@ def solution(a, b, c, d):
     m[b]+=1
     m[c]+=1
     m[d]+=1
-    v=[]
-    for cur in m.keys():
-        v.append((m[cur],cur))
-    v.sort(reverse=True)
+    v=list(m.keys())
     if len(m)==1:
-        return 1111*a
+        answer=1111*a
     elif len(m)==2:
-        q,w,e,r=v[0][0],v[1][0],v[0][1],v[1][1]
-        if q==3:
-            return math.pow(10*e+r,2)
+        if m[v[0]]==2:
+            answer=(v[0]+v[1])*abs(v[0]-v[1])
         else:
-            return (e+r)*abs(e-r)
+            p,q=v[0],v[1]
+            if m[q]==3:
+                p,q=q,p
+            answer=pow(10*p+q,2)
     elif len(m)==3:
-        e,r=v[1][1],v[2][1]
-        return e*r
+        answer=1
+        for cur in v:
+            if m[cur]==1:
+                answer*=cur
     else:
-        v.sort(key=lambda x:x[1])
-        return v[0][1]
-    
+        answer=min(a,b,c,d)
+    return answer
