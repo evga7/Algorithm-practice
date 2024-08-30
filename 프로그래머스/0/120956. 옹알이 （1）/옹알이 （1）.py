@@ -1,15 +1,11 @@
-st=set()
 def solution(babbling):
     answer = 0
-    st.add('aya')
-    st.add('ye')
-    st.add('woo')
-    st.add('ma')
-    answer = 0
-    for x in babbling:
-        for cur in st:
-            x=x.replace(cur,' ')
-        x=x.replace(' ','')
-        if not x:
+    a=['aya','ye','woo','ma']
+    for cur in babbling:
+        s=cur
+        for cur2 in a:
+            s=s.replace(cur2,' ')
+        s=s.replace(' ','')
+        if not s:
             answer+=1
     return answer
