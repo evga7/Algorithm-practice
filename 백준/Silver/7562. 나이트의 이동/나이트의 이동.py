@@ -1,30 +1,36 @@
-dx = [-1,-2,-2,-1,1,2,2,1]  # 오 왼 위 아
-dy = [-2,-1,1,2,2,1,-1,-2]
-import heapq
-def is_inside(x,y,N,M):
-    return 0<=x<N and 0<=y<M
+import itertools
+import math
 from collections import *
 import sys
-sys.setrecursionlimit(10000)
-def input():return sys.stdin.readline().rstrip()
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
+def is_inside(x,y,N,M):
+    return 0<=x<N and 0<=y<M
+#dx=[0,1,0,-1]
+#dy=[1,0,-1,0]
+dx=[-1,-2,-2,-1,1,2,2,1]
+dy=[-2,-1,1,2,2,1,-1,-2]
 T=int(input())
-def go():
-    q=[]
-    q.append((0,sx,sy))
-    dist[sx][sy]=0
-    while q:
-        cost,x,y=heapq.heappop(q)
-        for i in range(8):
-            n_x=x+dx[i]
-            n_y=y+dy[i]
-            if is_inside(n_x,n_y,N,N) and dist[n_x][n_y]>cost+1:
-                dist[n_x][n_y]=cost+1
-                heapq.heappush(q,(cost+1,n_x,n_y))
-    print(dist[ddx][ddy])
 while T:
     T-=1
     N=int(input())
     sx,sy=map(int,input().split())
-    ddx, ddy = map(int, input().split())
-    dist=[[987654321 for _ in range(N+1)] for _ in range(N+1)]
-    go()
+    ex, ey = map(int, input().split())
+    q=deque()
+    st=set()
+    q.append((0,sx,sy))
+    st.add((sx,sy))
+    while q:
+        cost,x,y=q.popleft()
+        if x==ex and y==ey:
+            print(cost)
+            break
+        for i in range(8):
+            n_x=x+dx[i]
+            n_y=y+dy[i]
+            if is_inside(n_x,n_y,N,N) and not (n_x,n_y) in st:
+                st.add((n_x,n_y))
+                q.append((cost+1,n_x,n_y))
+
