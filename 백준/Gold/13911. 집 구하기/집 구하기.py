@@ -22,7 +22,7 @@ mac=list(map(int,input().split()))
 S,Y=map(int,input().split())
 star=list(map(int,input().split()))
 q=[]
-dist=[MAX for _ in range(V+1)]
+dist=[987654321 for _ in range(V+1)]
 st=set(star+mac)
 for cur in mac:
     q.append((0,cur))
@@ -34,7 +34,7 @@ while q:
         if n_cost<=X and n_cost<dist[nxt]:
             dist[nxt]=n_cost
             heapq.heappush(q,(n_cost,nxt))
-dist2=[MAX for _ in range(V+1)]
+dist2=[987654321 for _ in range(V+1)]
 for cur in star:
     q.append((0,cur))
 while q:
@@ -45,12 +45,11 @@ while q:
         if n_cost<=Y and n_cost<dist2[nxt]:
             dist2[nxt]=n_cost
             heapq.heappush(q,(n_cost,nxt))
-m=MAX
-res=MAX
+res=987654321
 for i in range(1,V+1):
     if i in st:continue
     if dist[i]<=X and dist2[i]<=Y:
         res=min(res,dist[i]+dist2[i])
-if res==MAX:
+if res==987654321:
     res=-1
 print(res)
