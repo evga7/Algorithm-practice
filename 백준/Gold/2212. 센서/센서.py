@@ -1,11 +1,17 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+#sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9) + 9
 N=int(input())
 M=int(input())
 a=list(map(int,input().split()))
-b=[]
 a.sort()
-for i in range(1,len(a)):
+b=[]
+for i in range(1,N):
     b.append(a[i]-a[i-1])
-b.sort(reverse=True)
-print(sum(b[M-1:]))
+b.sort()
+res=0
+for i in range(N-M):
+    res+=b[i]
+print(res)
