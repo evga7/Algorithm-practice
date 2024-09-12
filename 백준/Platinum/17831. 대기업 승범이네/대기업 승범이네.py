@@ -1,30 +1,40 @@
+import heapq
+import itertools
+import math
+from collections import *
 import sys
 sys.setrecursionlimit(200000)
-def input():return sys.stdin.readline().rstrip()
-INF=sys.maxsize
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
+def is_inside(x,y,N,M):
+    return 0<=x<N and 0<=y<M
+dx=[0,1,0,-1,-1,-1,1,1]
+dy=[1,0,-1,0,-1,1,1,-1]
 N=int(input())
-g=[[] for _ in range(N+1)]
 a=list(map(int,input().split()))
-p=list(map(int,input().split()))
+g=defaultdict(list)
+idx=2
+cost=[0]+list(map(int,input().split()))
+for cur in a:
+    g[cur].append(idx)
+    idx+=1
+visited=[0 for _ in range(N+1)]
 dp=[[-1 for _ in range(2)] for _ in range(N+1)]
-for i,cur in enumerate(a):
-    g[cur].append(i+2)
-def go(cur,f):
-    if dp[cur][f]!=-1:
-        return dp[cur][f]
+def go(cur,op):
+    if dp[cur][op]!=-1:
+        return dp[cur][op]
     ret=0
-    if f:
+    if op:
         for nxt in g[cur]:
             ret+=go(nxt,0)
     else:
-        notmenti=0
+        s=0
         for nxt in g[cur]:
-            notmenti+=go(nxt,0)
-        menti=0
+            s+=go(nxt,0)
         for nxt in g[cur]:
-            menti=(notmenti-go(nxt,0))+(go(nxt,1)+(p[cur-1]*p[nxt-1]))
-            ret=max(ret,notmenti,menti)
-    dp[cur][f]=ret
-    return dp[cur][f]
-    
-print(go(1,0))    
+            s2=(s-go(nxt,0))+(go(nxt,1)+cost[cur]*cost[nxt])
+            ret=max(ret,s,s2)
+    dp[cur][op]=ret
+    return dp[cur][op]
+print(go(1,0))
