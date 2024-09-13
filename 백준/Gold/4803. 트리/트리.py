@@ -27,17 +27,19 @@ while True:
     p = [i for i in range(N+1)]
     f = 1
     st2=set()
-    b=[list(map(int,input().split())) for _ in range(M)]
-    b.sort()
-    for x,y in b:
+    for i in range(M):
+        x,y=map(int,input().split())
         if not uni(x,y):
             st2.add(find(x))
     print("Case %d:" % idx, end=' ')
     st = set()
     f = 1
+    st3=set()
+    for cur in st2:
+        st3.add(find(cur))
     for i in range(1, N + 1):
         c=find(i)
-        if not c in st2:
+        if not c in st3:
             st.add(c)
     res = len(st)
     if not res:
