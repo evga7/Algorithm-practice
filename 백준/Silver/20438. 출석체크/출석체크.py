@@ -1,18 +1,33 @@
+from collections import *
 import sys
-def input():return sys.stdin.readline().rstrip()
-arr=[0 for _ in range(50001)]
-d=[0 for _ in range(50001)]
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
+def is_inside(x, y, N, M):
+    return 0 <= x < N and 0 <= y < M
+# dx=[0,1,0,-1,-1,-1,1,1]
+# dy=[1,0,-1,0,-1,1,1,-1]
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 N,K,Q,M=map(int,input().split())
-k=set(list(map(int,input().split())))
-q=list(map(int,input().split()))
-for cur in q:
-    if cur in k:continue
-    for i in range(cur,50000,cur):
-        if i in k:continue
-        arr[i]=1
-for i in range(50000):
-    d[i]+=d[i-1]+arr[i]
-
+a=set(map(int,input().split()))
+b=list(map(int,input().split()))
+c=[0 for _ in range(50001)]
+for cur in b:
+    if cur in a:continue
+    cc=cur
+    while cc<=50000:
+        c[cc]=1
+        cc+=cur
+for cur in a:
+    c[cur]=0
+d=[0 for _ in range(50001)]
+for i in range(1,50001):
+    d[i]=d[i-1]
+    if not c[i]:
+        d[i]+=1
 for i in range(M):
-    a,b=map(int,input().split())
-    print((b-(a-1))-(d[b]-d[a-1]))
+    S,E=map(int,input().split())
+    print(d[E]-d[S-1])
+
