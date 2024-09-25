@@ -9,6 +9,8 @@ def is_inside(x,y,N,M):
 #dy=[1,0,-1,0,-1,1,1,-1]
 #dx=[0,0,1,-1]
 #dy=[1,-1,0,0]
+dx=[1,1,-1,-1]
+dy=[1,-1,-1,1]
 N=int(input())
 a=[list(map(int,input().split())) for _ in range(N)]
 c=[0 for _ in range(2*N)]
@@ -22,10 +24,10 @@ l=len(v)
 
 def go(idx,cnt):
     global res
-    if res>=cnt+(l-idx):
-        return
     res=max(res,cnt)
     if idx==l:
+        return
+    if res>=cnt+(l-idx):
         return
     for x,y in v[idx]:
         c2=x-y
