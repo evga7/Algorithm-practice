@@ -1,37 +1,43 @@
 import math
+from collections import *
+import sys
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
 def is_inside(x,y,N,M):
     return 0<=x<N and 0<=y<M
-import sys
-def input():return sys.stdin.readline().rstrip()
+#dx=[0,1,0,-1,-1,-1,1,1]
+#dy=[1,0,-1,0,-1,1,1,-1]
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
 N,M=map(int,input().split())
-res=-1
 a=[list(input()) for _ in range(N)]
-def go(x,y,xx,yy,num,op):
-    num1=int(num)
-    num2=int(num[::-1])
-    sq=math.sqrt(num1)
-    sq2=math.sqrt(num2)
+res=-1
+st=set()
+def go(x,y,s,c1,c2,op):
     global res
-    if sq*sq==int(sq)*int(sq):
-        res=max(res,num1)
-    if sq2*sq2==int(sq2)*int(sq2):
-        res=max(res,num2)
+    if s:
+        ss = s[::-1]
+        num = int(s)
+        num2 = int(ss)
+        mt = math.sqrt(num)
+        mt2 = math.sqrt(num2)
+        if int(mt) == mt:
+            res = max(res, num)
+        if int(mt2) == mt2:
+            res = max(res, num2)
     if not is_inside(x,y,N,M):
         return
-    if len(num)>=max(N,M):
-        return
     if not op:
-        go(x+xx,y+yy,xx,yy,num+a[x][y],op)
+        go(x+c1,y+c2,s+a[x][y],c1,c2,op)
     else:
-        go(x+xx,y-yy,xx,yy,num+a[x][y],op)
+        go(x + c1, y - c2, s + a[x][y], c1, c2,op)
 for i in range(N):
     for j in range(M):
-        sq=math.sqrt(int(a[i][j]))
-        if sq * sq == int(sq) * int(sq):
-            res = max(res, int(a[i][j]))
-        for k in range(N):
-            for l in range(M):
+        for k in range(10):
+            for l in range(10):
                 if k==0 and l==0:continue
-                go(i+k,j+l,k,l,a[i][j],0)
-                go(i + k, j - l, k, l, a[i][j],1)
+                go(i,j,'',k,l,1)
+                go(i, j, '', k, l, 0)
 print(res)
