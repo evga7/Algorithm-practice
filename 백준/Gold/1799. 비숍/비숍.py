@@ -14,7 +14,6 @@ dy=[1,-1,-1,1]
 N=int(input())
 a=[list(map(int,input().split())) for _ in range(N)]
 c=[0 for _ in range(2*N)]
-res=0
 v=[[] for _ in range(2*N)]
 for i in range(N):
     for j in range(N):
@@ -24,10 +23,10 @@ l=len(v)
 
 def go(idx,cnt):
     global res
-    res=max(res,cnt)
-    if idx==l:
+    if res>=cnt+(l+1-idx)//2:
         return
-    if res>=cnt+(l-idx):
+    res=max(res,cnt)
+    if idx>=l:
         return
     for x,y in v[idx]:
         c2=x-y
@@ -35,8 +34,12 @@ def go(idx,cnt):
             c2=abs(c2)+N-1
         if not c[c2]:
             c[c2]=1
-            go(idx+1,cnt+1)
+            go(idx+2,cnt+1)
             c[c2]=0
-    go(idx+1,cnt)
+    go(idx+2,cnt)
+res=0
+go(1,0)
+res2=res
+res=0
 go(0,0)
-print(res)
+print(res+res2)
