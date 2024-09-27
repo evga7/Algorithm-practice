@@ -1,24 +1,30 @@
+import heapq
+from collections import *
 import sys
 sys.setrecursionlimit(100000)
-def input():return sys.stdin.readline().rstrip()
-MAX=sys.maxsize
-MOD=int(1e9)+9
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
+def is_inside(x, y, N, M):
+    return 0 <= x < N and 0 <= y < M
+# dx=[0,1,0,-1,-1,-1,1,1]
+# dy=[1,0,-1,0,-1,1,1,-1]
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 N,M=map(int,input().split())
 a=list(map(int,input().split()))
-dp=[-1 for _ in range(N+1)]
-def go(idx):
-    if idx==N-1:
-        return 1
-    if dp[idx]!=-1:
-        return dp[idx]
-    ret=0
-    for i in range(idx+1,N):
-        if ((i-idx)*(1+abs(a[idx]-a[i])))<=M:
-            ret=max(go(i),ret)
-    dp[idx]=ret
-    return dp[idx]
-res=go(0)
-if res:
-    print("YES")
-else:
-    print("NO")
+q=deque()
+c=[0 for _ in range(N+1)]
+q.append(0)
+c[0]=1
+while q:
+    cur=q.popleft()
+    if cur==N-1:
+        print("YES")
+        exit(0)
+    for i in range(cur+1,N):
+        n_cost=(i-cur)*(1+abs(a[cur]-a[i]))
+        if not c[i] and n_cost<=M:
+            q.append(i)
+            c[i]=1
+print("NO")
