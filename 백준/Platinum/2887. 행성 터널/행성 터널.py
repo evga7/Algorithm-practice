@@ -78,6 +78,7 @@ for i in range(1,N):
 v.sort()
 res=0
 for cost,S,E in v:
-    if uni(S,E):
+    if find(S)!=find(E):
+        uni(S,E)
         res+=cost
 print(res)
