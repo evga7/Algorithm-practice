@@ -1,11 +1,27 @@
 import sys
-def input():return sys.stdin.readline().rstrip()
+sys.setrecursionlimit(100000)
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)+7
+def is_inside(x,y,N,M):
+    return 0<=x<N and 0<=y<M
+#dx=[0,1,0,-1,-1,-1,1,1]
+#dy=[1,0,-1,0,-1,1,1,-1]
+dx=[0,0,1,-1]
+dy=[1,-1,0,0]
 N=int(input())
-arr=[list(map(int,input().split())) for _ in range(N)]
-for i in range(len(arr)):
-    res=1
-    a,b=arr[i][0],arr[i][1]
-    for j in range(len(arr)):
-        if a<arr[j][0] and b<arr[j][1]:
-            res+=1
-    print(res,end=' ')
+a=[list(map(int,input().split())) for _ in range(N)]
+cnt=0
+r=[]
+v=[]
+for i in range(N):
+    x,y=a[i]
+    rank=1
+    for j in range(N):
+        xx,yy=a[j]
+        if x<xx and y<yy:
+            rank+=1
+    r.append(rank)
+print(*r)
+    
+    
