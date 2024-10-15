@@ -1,82 +1,87 @@
 import java.io.*;
+import java.sql.Array;
 import java.util.*;
 
 public class Main {
-    static int []dx={-1,0,1,0};
-    static int [] dy={0,1,0,-1};
-    static int N;
-    static int M;
-    static char arr[][];
-    static boolean visited[][];
-    static boolean is_inside(int x,int y,int N,int M)
-    {
-        return 0<=x&&x<N &&0<=y&&y<M;
-    }
+    static int dx[]={0,0,1,-1};
+    static int dy[]={1,-1,0,0};
+    static class Info {
+        int x,y;
+        Info(int x,int y){
+            this.x=x;
+            this.y=y;
+        }
 
-    static void go2(int sx,int sy)
+    }
+    public static boolean is_inside(int x,int y,int N,int M)
     {
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{sx,sy});
+        return 0<= x && x<N &&0<=y &&y<M;
+    }
+    static int arr[][];
+    static int visited[][];
+    static int N,M,K,X;
+    static int res;
+    public static void go(int sx,int sy)
+    {
+        Queue<Info> q=new LinkedList<>();
+        q.offer(new Info(sx,sy));
+        visited[sx][sy]=1;
         while (!q.isEmpty())
         {
-            int cur[]=q.poll();
-            int x=cur[0];
-            int y=cur[1];
-            for (int i=0;i<4;i++)
-            {
-                int n_x=x+dx[i];
-                int n_y=y+dy[i];
-                if (is_inside(n_x,n_y,N,M)&& arr[n_x][n_y]=='#'&&!visited[n_x][n_y])
-                {
-                    visited[n_x][n_y]=true;
-                    q.offer(new int[]{n_x,n_y});
+            Info a=q.poll();
+            int x=a.x;
+            int y=a.y;
+            for (int i=0;i<4;i++) {
+                int n_x = x + dx[i];
+                int n_y = y + dy[i];
+                if (is_inside(n_x, n_y, N, M) && arr[n_x][n_y] == 1 && visited[n_x][n_y]==0){
+                    visited[n_x][n_y] = 1;
+                    q.offer(new Info(n_x,n_y));
                 }
             }
         }
-    }
-    static int go()
-    {
-
-        int cnt=0;
-        for (int i=0;i<N;i++)
-        {
-            for (int j=0;j<M;j++)
-            {
-                if (!visited[i][j] &&arr[i][j]=='#')
-                {
-                    cnt+=1;
-                    visited[i][j]=true;
-                    go2(i,j);
-                }
-            }
-        }
-        return cnt;
     }
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int T=Integer.parseInt(st.nextToken());
-        while (T>0) {
+        int T=Integer.parseInt(br.readLine());
+
+        while (T>0)
+        {
+            res=0;
             T-=1;
-            st = new StringTokenizer(br.readLine());
-            N = Integer.parseInt(st.nextToken());
-            M = Integer.parseInt(st.nextToken());
-            arr=new char[N][M];
-            visited=new boolean[N][M];
+            StringTokenizer st= new StringTokenizer(br.readLine());
+            N=Integer.parseInt(st.nextToken());
+            M=Integer.parseInt(st.nextToken());
+            arr=new int [N+1][M+1];
+            visited=new int [N+1][M+1];
             for (int i=0;i<N;i++)
             {
-                String S=br.readLine();
+                String t=br.readLine();
                 for (int j=0;j<M;j++)
                 {
-                    arr[i][j]=S.charAt(j);
+                    char c=t.charAt(j);
+                    if (c=='#')
+                        arr[i][j]=1;
+                    else
+                        arr[i][j]=0;
                 }
             }
-            bw.write(go()+"\n");
+            for (int i=0;i<N;i++)
+            {
+                for (int j=0;j<M;j++)
+                {
+                    if (arr[i][j]==1 && visited[i][j]==0) {
+                        go(i,j);
+                        res += 1;
+                    }
+                }
+            }
+            bw.write(Integer.toString(res)+"\n");
         }
         bw.flush();
 
     }
-
 
 }
