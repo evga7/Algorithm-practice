@@ -1,16 +1,33 @@
-from collections import *
 import sys
-def input():return sys.stdin.readline().rstrip()
+
+def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
+def is_inside(x, y, N, M):
+    return 0 <= x < N and 0 <= y < M
+# dx=[0,1,0,-1,-1,-1,1,1]
+# dy=[1,0,-1,0,-1,1,1,-1]
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 N=int(input())
 a=list(map(int,input().split()))
-q=deque()
+b=[]
+idx=0
 for i,cur in enumerate(a):
-    q.append((cur,i+1))
-while q:
-    nxt=q.popleft()
-    print(nxt[1],end=' ')
-    t=nxt[0]
-    if t>0:
-        q.rotate(-(t-1))
+    if cur<0:
+        b.append((i + 1, cur))
     else:
-        q.rotate(-t)
+        b.append((i+1,cur-1))
+
+idx=0
+l=N
+while b:
+    print(b[idx][0],end=' ')
+    cur=idx
+    l-=1
+    n=b[idx][1]
+    del b[idx]
+    if not b:
+        break
+    pos=(idx+n)%l
+    idx=pos
