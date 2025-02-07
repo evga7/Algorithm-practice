@@ -1,36 +1,52 @@
-import sys
+import bisect
 import heapq
+import itertools
+import sys
+from collections import *
+#sys.setrecursionlimit(100000)
 def input(): return sys.stdin.readline().rstrip()
+MAX = sys.maxsize
+MOD = int(1e9)
+def is_inside(x, y, N, M):
+    return 0 <= x < N and 0 <= y < M
+# dx=[0,1,0,-1,-1,-1,1,1]
+# dy=[1,0,-1,0,-1,1,1,-1]
+dx = [0, 0, 1,-1]
+dy = [1, -1, 0, 0]
 N,M,X,Y=map(int,input().split())
-g=[[] for _ in range(N+1)]
-for i in range(M):
-    a,b,c=map(int,input().split())
-    g[a].append((b,c))
-    g[b].append((a,c))
+g=defaultdict(list)
+dist=[987654321 for _ in range(N+1)]
 q=[]
-q.append((0,Y))
-dist=[987654321 for _ in range(N)]
 dist[Y]=0
+for i in range(M):
+    s,e,cost=map(int,input().split())
+    g[s].append((e,cost))
+    g[e].append((s,cost))
+q.append((0,Y))
 while q:
-    cost,x=heapq.heappop(q)
-    for cur in g[x]:
-        nxt,c=cur[0],cur[1]
-        if dist[nxt]>cost+c:
-            dist[nxt]=cost+c
-            heapq.heappush(q,(cost+c,nxt))
-dist.sort()
-res=0
-cnt=0
+    cost,cur=heapq.heappop(q)
+    for nxt,n_c in g[cur]:
+        n_cost=cost+n_c
+        if dist[nxt]>n_cost:
+            dist[nxt]=n_cost
+            heapq.heappush(q,(n_cost,nxt))
+v=[]
 for i in range(N):
-    cost=dist[i]*2
-    if cost>X:
+    if i==Y:continue
+    v.append(dist[i])
+    if dist[i]*2>X:
         print(-1)
         exit(0)
-    if cnt+cost<=X:
-        cnt+=cost
-    else:
-        res+=1
-        cnt=cost
-if cnt:
-    res+=1
-print(res)
+v.sort()
+s=0
+cnt=0
+for cur in v:
+    if s+(cur*2)>X:
+        cnt+=1
+        s=0
+    s+=cur*2
+if s:
+    cnt+=1
+print(cnt)
+
+
