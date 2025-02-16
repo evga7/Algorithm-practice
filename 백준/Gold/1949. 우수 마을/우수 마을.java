@@ -15,7 +15,7 @@ public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static ArrayList<Integer> arr= new ArrayList<>();
-    static Map<Integer,List<Integer>> g= new HashMap<>();
+    static List<Integer> g[];
     public static class Info{
         int x,y;
         Info(int x,int y){
@@ -26,7 +26,7 @@ public class Main {
     public static void go(int cur){
         visited[cur]=true;
         dp[0][cur]=arr.get(cur-1);
-        for (int nxt : g.get(cur)) {
+        for (int nxt : g[cur]) {
             if (visited[nxt]) continue;
             go(nxt);
             dp[1][cur] += Math.max(dp[0][nxt], dp[1][nxt]);
@@ -41,16 +41,18 @@ public class Main {
         StringTokenizer st= new StringTokenizer(br.readLine());
         visited=new boolean[N+1];
         dp=new int[2][N+1];
-        for (int i=0;i<N;i++){
+        g=new ArrayList[N+1];
+        for (int i=1;i<=N;i++){
             arr.add(Integer.parseInt(st.nextToken()));
+            g[i]= new ArrayList<>();
         }
         for (int i=0;i<N-1;i++){
             st=new StringTokenizer(br.readLine());
             int a,b;
             a=Integer.parseInt(st.nextToken());
             b=Integer.parseInt(st.nextToken());
-            g.computeIfAbsent(a,k -> new ArrayList<>()).add(b);
-            g.computeIfAbsent(b,k -> new ArrayList<>()).add(a);
+            g[a].add(b);
+            g[b].add(a);
         }
         go(1);
         bw.write(Integer.toString(Math.max(dp[1][1],dp[0][1])));
