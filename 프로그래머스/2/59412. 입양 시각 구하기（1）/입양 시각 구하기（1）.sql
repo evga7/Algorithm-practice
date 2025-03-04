@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT HOUR(datetime) HOUR,count(*) from animal_outs
-where HOUR(datetime)>=09 and HOUR(datetime)<20
+SELECT hour(datetime) HOUR , count(*) COUNT from ANIMAL_OUTS
 group by HOUR
+having HOUR>=9 and HOUR<20
 order by HOUR
