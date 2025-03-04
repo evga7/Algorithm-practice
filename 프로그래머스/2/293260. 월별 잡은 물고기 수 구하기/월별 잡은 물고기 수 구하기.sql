@@ -1,5 +1,4 @@
 -- 코드를 작성해주세요
-select count(*) fish_count,MONTH(TIME) MONTH from fish_info
+select count(*) FISH_COUNT,MONTH(TIME) MONTH from FISH_INFO 
 group by MONTH
-having fish_count>0
-order by MONTH
+order by month
