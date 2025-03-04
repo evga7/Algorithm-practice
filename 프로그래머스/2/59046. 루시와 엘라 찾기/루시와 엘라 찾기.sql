@@ -1,4 +1,4 @@
 -- 코드를 입력하세요
-SELECT animal_id,name,SEX_UPON_INTAKE from animal_ins
-where name in ('Lucy', 'Ella', 'Pickle', 'Rogan', 'Sabrina', 'Mitty')
+SELECT ANIMAL_ID,NAME,SEX_UPON_INTAKE from ANIMAL_INS
+where NAME like 'Lucy' or NAME like 'Ella' or NAME like 'Pickle' or NAME like 'Rogan' or NAME like 'Sabrina' or NAME like 'Mitty'
 order by animal_id
