@@ -1,5 +1,5 @@
 -- 코드를 작성해주세요
-select sum(b.score) SCORE,a.eMP_NO,a.EMP_NAME,a.POSITION,a.EMAIL from HR_EMPLOYEES a join HR_GRADE b on a.emp_no=b.emp_no
-where b.year='2022'
-group by a.emp_no
-order by score desc limit 1
+select sum(c.SCORE) SCORE,c.EMP_NO,b.EMP_NAME,b.POSITION,b.EMAIL from HR_DEPARTMENT a join HR_EMPLOYEES b on a.DEPT_ID=b.DEPT_ID join HR_GRADE c on b.EMP_NO=c.EMP_NO
+where c.YEAR ='2022'
+group by c.EMP_NO
+order by SCORE desc limit 1
