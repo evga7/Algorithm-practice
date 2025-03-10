@@ -1,4 +1,4 @@
 -- 코드를 입력하세요
-SELECT a.name,a.datetime from ANIMAL_INS a left join ANIMAL_OUTS b on a.animal_id=b.animal_id
-where b.animal_id is null
-order by a.datetime limit 3
+SELECT a.NAME,a.DATETIME from ANIMAL_INS a left outer join ANIMAL_OUTS b on a.ANIMAL_ID=b.ANIMAL_ID
+where a.NAME is not null and b.name is null
+order by a.DATETIME limit 3
