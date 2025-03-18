@@ -1,4 +1,4 @@
 -- 코드를 작성해주세요
-select a.dept_id,a.DEPT_NAME_EN,round(avg(b.sal)) avg_sal from HR_DEPARTMENT a join HR_EMPLOYEES b on a.dept_id=b.dept_id
+select a.DEPT_ID,a.DEPT_NAME_EN,round(avg(b.SAL)) AVG_SAL from HR_DEPARTMENT a join HR_EMPLOYEES b on a.DEPT_ID=b.DEPT_ID
 group by a.dept_id,a.DEPT_NAME_EN
-order by avg_sal desc
+order by AVG_SAL desc
