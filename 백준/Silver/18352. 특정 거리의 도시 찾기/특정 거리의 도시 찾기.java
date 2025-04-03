@@ -2,75 +2,78 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    static List<List<Integer>> g;
-    static int dist[];
     static int N,M,K,X;
-    static class info{
-        private int cost;
-        private int cur;
-        public info(int cost,int cur){
+    static int res;
+    public static boolean is_inside(int x,int y,int N,int M){
+        return 0<=x && x<N && 0<=y && y<M;
+    }
+    static int dx[]={1,0,-1,0};
+    static int dy[]={0,1,0,-1};
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static StringTokenizer st;
+    static StringBuilder sb;
+    static int dist[];
+    static int dp[][];
+    static ArrayList<Integer> arr=new ArrayList<>();
+    static ArrayList<Integer> g[];
+    public static class Info{
+        int x,cost;
+        public Info(int x, int cost){
+            this.x=x;
             this.cost=cost;
-            this.cur=cur;
         }
     }
-    public static void go() throws IOException {
-        Queue<info> q=new LinkedList<>();
-        q.add(new info(0,X));
-        dist[X]=0;
-        while (!q.isEmpty())
-        {
-            info i1=q.poll();
-            int cost,cur;
-            cost=i1.cost;
-            cur=i1.cur;
-            if (dist[cur]<cost)continue;
-            for (int nxt : g.get(cur))
-            {
-                if (dist[nxt]>cost+1)
-                {
+
+    public static void go(int start){
+        Queue<Info> q= new LinkedList<>();
+        q.add(new Info(start,0));
+        dist[start]=0;
+        while (!q.isEmpty()){
+            var c =q.poll();
+            int cur=c.x;
+            int cost=c.cost;
+            for (var nxt : g[cur]){
+                if (dist[nxt]>cost+1){
                     dist[nxt]=cost+1;
-                    q.add(new info(cost+1,nxt));
+                    q.add(new Info(nxt,cost+1));
                 }
             }
         }
-        boolean f=false;
-        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
-        for (int i=1;i<=N;i++)
-        {
-            if (dist[i]==K){
-                bw.write(String.valueOf(i)+"\n");
-                f=true;
-            }
-        }
-        if (f==false) {
-            bw.write("-1");
-        }
-        bw.flush();
-        bw.close();
-
     }
     public static void main(String[] args) throws IOException {
-        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st= new StringTokenizer(br.readLine());
+        st=new StringTokenizer(br.readLine());
         N=Integer.parseInt(st.nextToken());
         M=Integer.parseInt(st.nextToken());
         K=Integer.parseInt(st.nextToken());
         X=Integer.parseInt(st.nextToken());
-        dist=new int[N+1];
+        dist=new int [N+1];
+        g= new ArrayList[N+1];
         Arrays.fill(dist,987654321);
-        g= new ArrayList<>();
-        for (int i=0;i<N+1;i++)
-            g.add(new ArrayList<>());
-
-        for (int i=0;i<M;i++)
-        {
-            StringTokenizer str= new StringTokenizer(br.readLine());
-            int q,w;
-            q=Integer.parseInt(str.nextToken());
-            w=Integer.parseInt(str.nextToken());
-            g.get(q).add(w);
+        for (int i=1;i<=N;i++)
+            g[i]=new ArrayList<>();
+        for (int i=0;i<M;i++){
+            int A,B;
+            st=new StringTokenizer(br.readLine());
+            A=Integer.parseInt(st.nextToken());
+            B=Integer.parseInt(st.nextToken());
+            g[A].add(B);
         }
-        go();
+        go(X);
+        for (int i=1;i<=N;i++)
+        {
+            if (dist[i]==K)
+                arr.add(i);
+        }
+
+        if (arr.isEmpty())
+            bw.write("-1");
+        else{
+            for (var cur : arr)
+                bw.write(Integer.toString(cur)+" ");
+        }
+        bw.close();
     }
+
+
 }
